@@ -25,56 +25,61 @@ function getHumanChoice() {
 
 // round algorithm
 function playRound(humanSelection, computerSelection) {
-    console.log(`Computer chooses ${computerSelection}`);
+    const leaderboard = document.getElementById("leaderboard");
+
+    const paraText = document.getElementById("textMatch");
 
     if (humanSelection === computerSelection) {
-        console.log(`Draw! Both of you chooses ${humanSelection}.`);
+        paraText.textContent = `Draw! Both of you chooses ${humanSelection}.`;
         humanScore++;
         computerScore++;
     }
     else if (humanSelection === "rock") {
         if (computerSelection === "paper") {
-            console.log(`You lose! paper beats rock.`);
+            paraText.textContent = `You lose! paper beats rock.`;
             computerScore++;
         } 
         else {
-            console.log(`You win! rock beats scissor.`);
+            paraText.textContent = `You win! rock beats scissor.`;
             computerScore++;
         }
     }
     else if (humanSelection === "paper") {
         if (computerSelection === "rock") {
-            console.log(`You win! paper beats rock.`);
+            paraText.textContent = `You win! paper beats rock.`;
             computerScore++;
         } 
         else {
-            console.log(`You lose! scissor beats paper.`);
+            paraText.textContent = `You lose! scissor beats paper.`;
             computerScore++;
         }
     }
     else if (humanSelection === "scissor") {
         if (computerSelection === "paper") {
-            console.log(`You win! scissor beats paper.`);
+            paraText.textContent = `You win! scissor beats paper.`;
             computerScore++;
         } 
         else {
-            console.log(`You lose! rock beats scissor.`);
+            paraText.textContent = `You lose! rock beats scissor.`;
             computerScore++;
         }
     }
 
+    document.getElementById("human").textContent = `Human : ${humanScore}`;
+    document.getElementById("computer").textContent = `Computer : ${computerScore}`;
 }
 
 // game algorithm
 function playGame() {
-    console.log("Welcome to Rock-Paper-Scissor Game!");
-    console.log("We're going to play total of 5 rounds.");
+    const choiceContainer = document.getElementById("choice");
+    choiceContainer.addEventListener("click", (e) => {
+        if (e.target.tagName !== "BUTTON") return
 
-    for (let i = 0; i < 5; i++) {
-        let humanSelection = getHumanChoice();
-        let computerSelection = getComputerChoice()
-        playRound(humanSelection, computerSelection);
-    }
+        const humanSelection = e.target.id;
+        const computerSelection = getComputerChoice();
+
+        playRound(humanSelection, computerSelection)
+    })
 
     console.log("The Final Score is:");
     console.log(`Computer: ${computerScore}`);
@@ -85,5 +90,5 @@ function playGame() {
 }
 
 // play the game
-playGame()
+playGame();
 
