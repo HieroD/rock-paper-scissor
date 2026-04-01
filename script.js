@@ -16,13 +16,6 @@ function getComputerChoice() {
     return choice; 
 }
 
-// inputting choice from user
-function getHumanChoice() {
-    let choice = prompt("Input your choice! (rock, paper, or scissor)")
-    choice = choice.toLowerCase()
-    return choice;
-}
-
 // round algorithm
 function playRound(humanSelection, computerSelection) {
     const leaderboard = document.getElementById("leaderboard");
@@ -41,13 +34,13 @@ function playRound(humanSelection, computerSelection) {
         } 
         else {
             paraText.textContent = `You win! rock beats scissor.`;
-            computerScore++;
+            humanScore++;
         }
     }
     else if (humanSelection === "paper") {
         if (computerSelection === "rock") {
             paraText.textContent = `You win! paper beats rock.`;
-            computerScore++;
+            humanScore++;
         } 
         else {
             paraText.textContent = `You lose! scissor beats paper.`;
@@ -57,7 +50,7 @@ function playRound(humanSelection, computerSelection) {
     else if (humanSelection === "scissor") {
         if (computerSelection === "paper") {
             paraText.textContent = `You win! scissor beats paper.`;
-            computerScore++;
+            humanScore++;
         } 
         else {
             paraText.textContent = `You lose! rock beats scissor.`;
@@ -67,6 +60,10 @@ function playRound(humanSelection, computerSelection) {
 
     document.getElementById("human").textContent = `Human : ${humanScore}`;
     document.getElementById("computer").textContent = `Computer : ${computerScore}`;
+
+    if(humanScore === 5 || computerScore === 5){
+        endTheGame();
+    }
 }
 
 // game algorithm
@@ -81,9 +78,21 @@ function playGame() {
         playRound(humanSelection, computerSelection)
     })
 
-    console.log("The Final Score is:");
-    console.log(`Computer: ${computerScore}`);
-    console.log(`Player: ${humanScore}`);
+}
+
+function endTheGame() {
+    const result = document.createElement("p");
+    document.body.appendChild(result);
+
+    if(humanScore > computerScore) {
+        result.textContent = "Player Wins!";
+    } 
+    else if (computerScore > humanScore) {
+        result.textContent = "Computer Wins!";
+    }
+    else {
+        result.textContent = "Draw!";
+    }
 
     humanScore = 0;
     computerScore = 0;
